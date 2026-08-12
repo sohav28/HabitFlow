@@ -3,9 +3,6 @@
 
 /*
   HabitFlow design tokens.
-  Concept: "momentum" — the visual language of a streak. Every accent,
-  the type pairing, and the signature strip motif exist to make
-  day-over-day consistency legible, not to decorate.
 */
 @theme {
   --font-display: "Space Grotesk", "Manrope", sans-serif;
@@ -26,7 +23,7 @@
   --color-paper-dark: #edece6;
   --color-ink-soft-dark: #92948d;
 
-  /* Accents — one per tracked ritual */
+  /* Accents */
   --color-flame: #ff4b2e;
   --color-flame-soft: #ffe3d9;
   --color-flame-soft-dark: #402019;
@@ -43,13 +40,15 @@
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
   }
+  /* By default dark theme for mobile and desktop */
   body {
-    background-color: var(--color-paper);
-    color: var(--color-ink);
-  }
-  .dark body {
     background-color: var(--color-ink-dark);
     color: var(--color-paper-dark);
+  }
+  /* Light mode class agar kabhi toggle karni ho */
+  .light body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
   }
   ::selection {
     background: var(--color-flame);
@@ -62,24 +61,22 @@
 }
 
 @layer utilities {
-  /* Hairline dotted rule used as the page-wide signature: a flow line
-     that threads through section boundaries, echoing the streak strip. */
   .flow-rule {
     background-image: repeating-linear-gradient(
       90deg,
-      var(--color-ink-soft) 0px,
-      var(--color-ink-soft) 4px,
+      var(--color-ink-soft-dark) 0px,
+      var(--color-ink-soft-dark) 4px,
       transparent 4px,
       transparent 10px
     );
     height: 1px;
     opacity: 0.35;
   }
-  .dark .flow-rule {
+  .light .flow-rule {
     background-image: repeating-linear-gradient(
       90deg,
-      var(--color-ink-soft-dark) 0px,
-      var(--color-ink-soft-dark) 4px,
+      var(--color-ink-soft) 0px,
+      var(--color-ink-soft) 4px,
       transparent 4px,
       transparent 10px
     );
