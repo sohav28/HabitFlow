@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  HabitFlow design tokens.
+  Concept: "momentum" — the visual language of a streak. Every accent,
+  the type pairing, and the signature strip motif exist to make
+  day-over-day consistency legible, not to decorate.
+*/
+@theme {
+  --font-display: "Space Grotesk", "Manrope", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Light surface */
+  --color-paper: #eff0ea;
+  --color-paper-raised: #fbfbf8;
+  --color-ink: #14151a;
+  --color-ink-soft: #61655e;
+  --color-line: #dcdad0;
+
+  /* Dark surface */
+  --color-ink-dark: #101114;
+  --color-surface-dark: #1a1b20;
+  --color-line-dark: #2b2c32;
+  --color-paper-dark: #edece6;
+  --color-ink-soft-dark: #92948d;
+
+  /* Accents — one per tracked ritual */
+  --color-flame: #ff4b2e;
+  --color-flame-soft: #ffe3d9;
+  --color-flame-soft-dark: #402019;
+  --color-moss: #2f6b4f;
+  --color-moss-soft: #dceee3;
+  --color-moss-soft-dark: #17301f;
+  --color-ocean: #1d6e86;
+  --color-ocean-soft: #dcedf3;
+  --color-ocean-soft-dark: #122a33;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .dark body {
+    background-color: var(--color-ink-dark);
+    color: var(--color-paper-dark);
+  }
+  ::selection {
+    background: var(--color-flame);
+    color: white;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-flame);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Hairline dotted rule used as the page-wide signature: a flow line
+     that threads through section boundaries, echoing the streak strip. */
+  .flow-rule {
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--color-ink-soft) 0px,
+      var(--color-ink-soft) 4px,
+      transparent 4px,
+      transparent 10px
+    );
+    height: 1px;
+    opacity: 0.35;
+  }
+  .dark .flow-rule {
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--color-ink-soft-dark) 0px,
+      var(--color-ink-soft-dark) 4px,
+      transparent 4px,
+      transparent 10px
+    );
+  }
+}
