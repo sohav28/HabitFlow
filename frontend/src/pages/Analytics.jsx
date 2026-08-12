@@ -21,11 +21,14 @@ export default function Analytics() {
 
   const { user } = useContext(AuthContext) || {};
 
-  // User-specific keys mapping with Workouts & Profile
-  const workoutStorageKey = user?.email ? `userWorkouts_${user.email}` : 'userWorkouts_default';
-  const habitsStorageKey = user?.email ? `userHabits_${user.email}` : 'userHabits_default';
-  const weightStorageKey = user?.email ? `userWeightHistory_${user.email}` : 'userWeightHistory_default';
-  const profileStorageKey = user?.email ? `userProfileData_${user.email}` : 'userProfileData_default';
+  // FIX: same sanitized key as Profile.jsx (previously raw email was used here,
+  // which contains '@' and '.' — Profile.jsx strips those, so keys never matched)
+  const userKey = user?.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'guest';
+
+  const workoutStorageKey = `userWorkouts_${userKey}`;
+  const habitsStorageKey = `userHabits_${userKey}`;
+  const weightStorageKey = `userWeightHistory_${userKey}`;
+  const profileStorageKey = `userProfileData_${userKey}`;
 
   useEffect(() => {
     const savedWorkouts = JSON.parse(localStorage.getItem(workoutStorageKey) || '[]');
